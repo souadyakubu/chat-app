@@ -1,0 +1,24 @@
+<div class="chat-container">
+  <header>
+    <h1>Chat App</h1>
+    <div class="user-settings">
+      <input type="text" [(ngModel)]="userName" (change)="onUserNameChange($event)" placeholder="Enter your name">
+      <input type="color" [(ngModel)]="color" (change)="onColorChange($event)">
+    </div>
+  </header>
+  <main>
+    <div class="messages">
+      @for (msg of messages$ | async; track msg.timestamp) {
+      <div class="message" [style.color]="msg.color">
+        <span class="timestamp">{{msg.timestamp.toDate() | date:"medium"}}</span>
+        <span class="username">{{msg.userName}}:</span>
+        <span class="content">{{msg.message}}</span>
+      </div>
+      }
+    </div>
+  </main>
+  <footer>
+    <input type="text" [(ngModel)]="newMessage" (keyup.enter)="onSubmit()" placeholder="Type a message...">
+    <button (click)="onSubmit()">Send</button>
+  </footer>
+</div>
